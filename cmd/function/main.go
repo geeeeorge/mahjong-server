@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
+	"log"
 )
 
 type Request = events.APIGatewayWebsocketProxyRequest
@@ -16,6 +17,18 @@ func main() {
 }
 
 func handler(ctx context.Context, req Request) (Response, error) {
+	// WebSocket接続IDを取得
+	connectionID := req.RequestContext.ConnectionID
+
+	// アクションによって処理を分岐
+	if req.RequestContext.EventType == "CONNECT" {
+		log.Printf("WebSocket connection established: %s", connectionID)
+		return handleConnect()
+	} else if req.RequestContext.EventType == "DISCONNECT" {
+		log.Printf("WebSocket connection destroyed: %s", connectionID)
+		return handleDisconnect()
+	}
+
 	// リクエストのボディをパース
 	var requestBody map[string]interface{}
 	err := json.Unmarshal([]byte(req.Body), &requestBody)
@@ -25,12 +38,6 @@ func handler(ctx context.Context, req Request) (Response, error) {
 
 	// action フィールドの値に基づいて処理を分岐
 	switch action := requestBody["action"].(string); action {
-	case "$connect":
-		// $connect アクションの場合の処理
-		return handleConnect()
-	case "$disconnect":
-		// $disconnect アクションの場合の処理
-		return handleDisconnect()
 	default:
 		// 不明なアクションの場合の処理
 		return Response{StatusCode: 400}, fmt.Errorf("unknown action: %s", action)
