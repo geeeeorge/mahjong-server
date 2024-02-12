@@ -8,19 +8,19 @@ module "mahjong_gateway_function_iam_policy_prod" {
 
   env = var.env_prod
   policies = [
-#    {
-#      name        = var.mahjong_gateway_function_iam_policy.policy_name
-#      description = var.mahjong_gateway_function_iam_policy.policy_description
-#      statements = [
-#        {
-#          Effect = "Allow"
-#          Action = var.mahjong_gateway_function_iam_policy.policy_statement_dynamodb_actions
-#          Resource = [
-#            module.mahjong_ddb_prod.ddb_arn,
-#          ]
-#        },
-#      ]
-#    }
+    #    {
+    #      name        = var.mahjong_gateway_function_iam_policy.policy_name
+    #      description = var.mahjong_gateway_function_iam_policy.policy_description
+    #      statements = [
+    #        {
+    #          Effect = "Allow"
+    #          Action = var.mahjong_gateway_function_iam_policy.policy_statement_dynamodb_actions
+    #          Resource = [
+    #            module.mahjong_ddb_prod.ddb_arn,
+    #          ]
+    #        },
+    #      ]
+    #    }
   ]
 }
 
@@ -49,7 +49,7 @@ module "mahjong_gateway_function_prod" {
     },
     {
       name  = "MAHJONG_TABLE"
-      value = ""  # TODO: module.mahjong_search_results_ddb_prod.ddb_name
+      value = "" # TODO: module.mahjong_search_results_ddb_prod.ddb_name
     },
   ]
   iam_role_arn = module.mahjong_gateway_function_iam_role_prod.iam_role_arn
@@ -60,7 +60,7 @@ module "mahjong_gateway_function_prod" {
 module "mahjong_gateway_prod" {
   source = "../modules/apigateway"
 
-  env = var.env_prod
+  env          = var.env_prod
   gateway_name = var.mahjong_gateway.gateway_name
 }
 
@@ -69,7 +69,7 @@ module "mahjong_gateway_connect_route_prod" {
 
   gateway_id = module.mahjong_gateway_prod.gateway_id
   invoke_arn = module.mahjong_gateway_function_prod.invoke_arn
-  route_key = "$connect"
+  route_key  = "$connect"
 }
 
 module "mahjong_gateway_disconnect_route_prod" {
@@ -77,5 +77,5 @@ module "mahjong_gateway_disconnect_route_prod" {
 
   gateway_id = module.mahjong_gateway_prod.gateway_id
   invoke_arn = module.mahjong_gateway_function_prod.invoke_arn
-  route_key = "$disconnect"
+  route_key  = "$disconnect"
 }

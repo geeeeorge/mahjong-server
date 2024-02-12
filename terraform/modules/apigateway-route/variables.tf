@@ -10,5 +10,5 @@ variable "invoke_arn" {
 
 variable "route_key" {
   description = "Route Key"
-  type = string
+  type        = string
 }

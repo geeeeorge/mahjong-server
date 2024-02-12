@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket         = "mahjong.terraform.state"
-    key            = "common"
-    region         = "ap-northeast-1"
+    bucket = "mahjong.terraform.state"
+    key    = "common"
+    region = "ap-northeast-1"
   }
   required_providers {
     aws = "~>4.0"
@@ -12,7 +12,7 @@ terraform {
 provider "aws" {
   default_tags {
     tags = {
-      cost    = "mahjong"
+      cost = "mahjong"
     }
   }
 }
