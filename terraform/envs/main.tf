@@ -17,12 +17,6 @@ provider "aws" {
   }
 }
 
-module "tfstate_bucket" {
-  source = "../modules/s3"
-
-  bucket_name = "mahjong.terraform.state"
-}
-
 module "apigw_account" {
   source = "../modules/apigateway-account"
 }
