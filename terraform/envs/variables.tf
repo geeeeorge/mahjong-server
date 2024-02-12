@@ -44,12 +44,19 @@ variable "mahjong_gateway_function" {
     name        = string
     memory_size = number
     arch        = string
-    cmd         = list(string)
   })
   default = {
     name        = "mahjong_gateway"
     memory_size = 128
     arch        = "x86_64"
-    cmd         = []
+  }
+}
+
+variable "mahjong_gateway" {
+  type = object({
+    gateway_name = string
+  })
+  default = {
+    gateway_name = "mahjong_gateway"
   }
 }

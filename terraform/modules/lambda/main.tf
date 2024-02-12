@@ -16,10 +16,6 @@ resource "aws_lambda_function" "function" {
     }
   }
 
-  image_config {
-    command = var.cmd
-  }
-
   architectures = [var.arch]
 }
 

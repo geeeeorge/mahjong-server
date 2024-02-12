@@ -31,11 +31,6 @@ variable "envs" {
   }))
 }
 
-variable "cmd" {
-  description = "Command to run Docker Image"
-  type        = list(string)
-}
-
 variable "arch" {
   description = "Architecture of Docker Image"
   type        = string
