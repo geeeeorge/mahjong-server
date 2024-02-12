@@ -23,6 +23,10 @@ module "tfstate_bucket" {
   bucket_name = "mahjong.terraform.state"
 }
 
+module "apigw_account" {
+  source = "../modules/apigateway-account"
+}
+
 # dev・prod共通のECRを使用する
 module "mahjong_gateway_ecr" {
   source = "../modules/ecr"
